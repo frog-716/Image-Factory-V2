@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "status": "本地做法，未接通飞书、未生图验证",
+  "methods": {
+    "clear-product": {
+      "name": "商品看清楚",
+      "skus": ["484330", "488726"],
+      "components": ["F01", "T01", "K02", "L01"],
+      "purpose": "让商品第一眼清楚，在不改变商品事实的前提下比较三种展示背景。",
+      "allowed": "只设计主体周围的背景组织和阅读层次，保留原展示方式及完整可见范围。",
+      "directions": ["A：干净白色目录背景，商品与背景边缘清楚。", "B：明显的中性几何背景色块，形成层次，不覆盖主体或原有标记。", "C：有宽窄层次的背景分区，组织阅读顺序，不重排主体。"]
+    },
+    "wear-environment": {
+      "name": "穿搭换环境",
+      "skus": ["488726"],
+      "components": ["F02", "T01", "K01", "K02", "L02"],
+      "purpose": "让同一张黑色茄克正面穿着图适应三个明显不同的服装展示环境。",
+      "allowed": "只设计原模特周围的背景空间与远近层次；环境光方向贴近原图，不重画人物或衣服来匹配环境。",
+      "directions": ["A：简洁棚拍背景，背景平整、干净，让黑色茄克轮廓和细节清楚。", "B：克制零售空间，背景用竖向墙面结构与远近层次形成空间感；不在身体前加道具，不出现其他商品。", "C：中性自然窗边环境，背景用窗框与墙面层次表达生活感；不画强烈日照条纹，不给黑衣染色，光向匹配原片。"]
+    },
+    "catalog-design": {
+      "name": "版式有设计感",
+      "skus": ["484330"],
+      "components": ["F02", "T01", "K03", "L01"],
+      "purpose": "为32深米色休闲鞋做二维目录展示，用三种清楚的阅读层次比较是否比原图更适合商品展示。",
+      "allowed": "设计背景色块与留白；初次保持侧面与上视的比例、视角、相对位置及原有标记位置，不裁切或重新排列两个视图。不把版式色块画成现实承托面。",
+      "directions": ["A：干净目录版，白色背景、清楚的主体边缘，不额外加装饰，完整保留源图标记。", "B：几何色块版，在商品后方布置一块明显但克制的中性色二维色块，让两个既有视图形成目录层次；不覆盖鞋或标记、不制造实物承托关系。", "C：编辑留白版，在不移动两个视图的情况下，用明确侧向留白区域与分层背景组织阅读；左上原标记仍完整可见，不新增文字。"]
+    }
+  },
+  "design_note": "三方向是比较候选，不是风格锁定的统一套图；尚无这三方向的真实样片。具体方向是本项目适配，不是新增组件记录。",
+  "sources": [
+    {"author": "buluslan / Buluu@新西楼", "url": "https://github.com/buluslan/gpt-image2-ecommerce", "commit": "73abd50bf2b689b5a453f28ddd7b0016415deec6", "license": "MIT"},
+    {"author": "yang0", "url": "https://github.com/yang0/handraw-style", "commit": "f03971d541d937c74bb302b650c2fb8b1d9cb0db", "license": "MIT License (with Attribution Requirement)"},
+    {"author": "JeremyGDM", "url": "https://github.com/JeremyGDM/awesome-ai-product-photography-prompts", "commit": "6815dab9c17ce20c5c554df4ecf28336fd0aef0a", "license": "CC0 1.0（仓库声明）"}
+  ]
+}

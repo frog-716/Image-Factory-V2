@@ -1,0 +1,34 @@
+# local secrets / auth
+.env
+.env.*
+config.local.json
+*.local.json
+
+# local runtime / evidence
+.local/
+out/
+private/
+docs/internal/
+*.log
+
+# generated handoff bundles
+*.zip
+Image-Factory-V2-UNIQLO-R*/
+Image-Factory-V2-Cleanup-Publish-Kit*/
+
+# python / os
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.pytest_cache/
+.coverage
+
+# editor / temp
+.scratch/
+tmp/
+temp/
+
+# approved local business assets and configuration
+data/staging/
+config/base.json

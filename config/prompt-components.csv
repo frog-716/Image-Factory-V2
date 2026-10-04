@@ -1,0 +1,34 @@
+﻿"组件编号","分类","名称","组件内容","适用渠道","适用品类","使用条件","来源编号","来源URL","许可证","状态"
+"C01","渠道","拼多多展示","拼多多商品展示，优先看清主体。","拼多多","鞋/T恤/外套","具体版位由运营确认","项目决定","项目素材核验与领域规则","项目自写规则","本地草稿，未生图实测"
+"C02","渠道","天猫超市展示","天猫超市商品展示，背景简洁、商品清楚。","天猫超市","鞋/T恤/外套","具体版位由运营确认","项目决定","项目素材核验与领域规则","项目自写规则","本地草稿，未生图实测"
+"F01","图片功能","干净展示","保留原图展示方式，只整理背景和边距。","拼多多/天猫超市","鞋/T恤/外套","真实素材已核实","O01/O04/O05","https://github.com/buluslan/gpt-image2-ecommerce/blob/73abd50bf2b689b5a453f28ddd7b0016415deec6/references/scenarios/hero-image.json
+https://github.com/buluslan/gpt-image2-ecommerce/blob/73abd50bf2b689b5a453f28ddd7b0016415deec6/references/scenarios/edit-bg-swap.json
+https://github.com/JeremyGDM/awesome-ai-product-photography-prompts/blob/6815dab9c17ce20c5c554df4ecf28336fd0aef0a/README.md","MIT / CC0-1.0（仓库声明）","本地草稿，未生图实测"
+"F02","图片功能","原图换背景","只替换周围背景，不重做商品或展示方式。","拼多多/天猫超市","鞋/T恤/外套","真实素材已核实","O04","https://github.com/buluslan/gpt-image2-ecommerce/blob/73abd50bf2b689b5a453f28ddd7b0016415deec6/references/scenarios/edit-bg-swap.json","MIT","本地草稿，未生图实测"
+"S01","场景","白色背景","使用干净白色背景，不增加道具。","拼多多/天猫超市","鞋/T恤/外套","背景不改变商品","O01/O05","https://github.com/buluslan/gpt-image2-ecommerce/blob/73abd50bf2b689b5a453f28ddd7b0016415deec6/references/scenarios/hero-image.json
+https://github.com/JeremyGDM/awesome-ai-product-photography-prompts/blob/6815dab9c17ce20c5c554df4ecf28336fd0aef0a/README.md","MIT / CC0-1.0（仓库声明）","本地草稿，未生图实测"
+"S02","场景","浅灰背景","使用浅灰背景，避免商品边缘融入背景。","拼多多/天猫超市","鞋/T恤/外套","背景不改变商品","O04","https://github.com/buluslan/gpt-image2-ecommerce/blob/73abd50bf2b689b5a453f28ddd7b0016415deec6/references/scenarios/edit-bg-swap.json","MIT","本地草稿，未生图实测"
+"S03","场景","浅米室内背景","以简洁浅米墙面衬托，不重摆商品或人物。","拼多多/天猫超市","鞋/T恤/外套","鞋保留组合布局，服装保留原展示方式","O04/O09","https://github.com/buluslan/gpt-image2-ecommerce/blob/73abd50bf2b689b5a453f28ddd7b0016415deec6/references/scenarios/edit-bg-swap.json
+https://github.com/JeremyGDM/awesome-ai-product-photography-prompts/blob/6815dab9c17ce20c5c554df4ecf28336fd0aef0a/README.md","MIT / CC0-1.0（仓库声明）","本地草稿，未生图实测"
+"T01","风格","克制展示","商品是重点，减少装饰和夸张效果。","拼多多/天猫超市","鞋/T恤/外套","不增加商品细节","O05/O10","https://github.com/JeremyGDM/awesome-ai-product-photography-prompts/blob/6815dab9c17ce20c5c554df4ecf28336fd0aef0a/README.md","CC0-1.0（仓库声明）","本地草稿，未生图实测"
+"T02","风格","保留可见纹理","保留原图可见纹理，不磨平、不编织新纹理。","拼多多/天猫超市","鞋/T恤/外套","仅描述原图能看清的部分","O06/项目经验","https://github.com/JeremyGDM/awesome-ai-product-photography-prompts/blob/6815dab9c17ce20c5c554df4ecf28336fd0aef0a/README.md","CC0-1.0（仓库声明）","本地草稿，未生图实测"
+"K01","构图","沿用角度","保留原视角，不旋转商品、不改人物姿势。","拼多多/天猫超市","鞋/T恤/外套","未知角度不能补画","O04/阶段1复核","https://github.com/buluslan/gpt-image2-ecommerce/blob/73abd50bf2b689b5a453f28ddd7b0016415deec6/references/scenarios/edit-bg-swap.json","MIT","本地草稿，未生图实测"
+"K02","构图","保留展示范围","原图已展示的区域不裁掉，画外部分不补出。","拼多多/天猫超市","鞋/T恤/外套","源图截断处保持截断","O05/阶段1复核","https://github.com/JeremyGDM/awesome-ai-product-photography-prompts/blob/6815dab9c17ce20c5c554df4ecf28336fd0aef0a/README.md","CC0-1.0（仓库声明）","本地草稿，未生图实测"
+"K03","构图","适量边距","仅微调整体位置和留白，不重排商品内部。","拼多多/天猫超市","鞋/T恤/外套","主体不裁切，保持原比例","O05/O11","https://github.com/JeremyGDM/awesome-ai-product-photography-prompts/blob/6815dab9c17ce20c5c554df4ecf28336fd0aef0a/README.md","CC0-1.0（仓库声明）","本地草稿，未生图实测"
+"L01","光线","中性柔光","使用与原图匹配的中性柔光，商品不偏色。","拼多多/天猫超市","鞋/T恤/外套","不以重打光改变纹理","O01/O06","https://github.com/buluslan/gpt-image2-ecommerce/blob/73abd50bf2b689b5a453f28ddd7b0016415deec6/references/scenarios/hero-image.json
+https://github.com/JeremyGDM/awesome-ai-product-photography-prompts/blob/6815dab9c17ce20c5c554df4ecf28336fd0aef0a/README.md","MIT / CC0-1.0（仓库声明）","本地草稿，未生图实测"
+"L02","光线","柔和室内光","背景用柔和室内光，亮度和方向贴近原图。","拼多多/天猫超市","鞋/T恤/外套","不能靠重画商品匹配背景","O09/O04","https://github.com/JeremyGDM/awesome-ai-product-photography-prompts/blob/6815dab9c17ce20c5c554df4ecf28336fd0aef0a/README.md
+https://github.com/buluslan/gpt-image2-ecommerce/blob/73abd50bf2b689b5a453f28ddd7b0016415deec6/references/scenarios/edit-bg-swap.json","CC0-1.0（仓库声明） / MIT","本地草稿，未生图实测"
+"P01","商品保护","同款原图","仅上传已核实同款同色原图，参考图不混入。","拼多多/天猫超市","鞋/T恤/外套","482295当前无可用原图","O04/阶段1复核","https://github.com/buluslan/gpt-image2-ecommerce/blob/73abd50bf2b689b5a453f28ddd7b0016415deec6/references/scenarios/edit-bg-swap.json","MIT","本地草稿，未生图实测"
+"P02","商品保护","保留颜色","以核实原图为颜色依据，不借其他色或滤镜换色。","拼多多/天猫超市","鞋/T恤/外套","货号及色号已核实","O06/阶段1复核","https://github.com/JeremyGDM/awesome-ai-product-photography-prompts/blob/6815dab9c17ce20c5c554df4ecf28336fd0aef0a/README.md","CC0-1.0（仓库声明）","本地草稿，未生图实测"
+"P03","商品保护","鞋组合不重排","侧面与上视是同款同色展示，不合并、配对或转角。","拼多多/天猫超市","鞋","仅484330当前组合图","阶段1复核","项目素材核验与领域规则","项目自写规则","本地草稿，未生图实测"
+"P04","商品保护","保留鞋可见结构","鞋头、鞋带、侧面分区和可见鞋底边缘沿用原图。","拼多多/天猫超市","鞋","只保留看见的部分，不补鞋底/后跟","O04/阶段1复核","https://github.com/buluslan/gpt-image2-ecommerce/blob/73abd50bf2b689b5a453f28ddd7b0016415deec6/references/scenarios/edit-bg-swap.json","MIT","本地草稿，未生图实测"
+"P05","商品保护","保留模特穿着","保留原模特、穿着、姿势和画面范围，不改成平铺。","拼多多/天猫超市","外套","仅488726当前模特正面图","阶段1复核","项目素材核验与领域规则","项目自写规则","本地草稿，未生图实测"
+"P06","商品保护","保留茄克正面","可见领形、门襟、口袋、纽扣和车线沿用原图。","拼多多/天猫超市","外套","不补背面、内部或被遮挡结构","O04/阶段1复核","https://github.com/buluslan/gpt-image2-ecommerce/blob/73abd50bf2b689b5a453f28ddd7b0016415deec6/references/scenarios/edit-bg-swap.json","MIT","本地草稿，未生图实测"
+"P07","商品保护","不补未知部分","没有真实背面、鞋底或细节，就保持原角度和可见范围。","拼多多/天猫超市","鞋/T恤/外套","缺图时缩小用例","阶段1复核/项目经验","项目素材核验与领域规则","项目自写规则","本地草稿，未生图实测"
+"P08","商品保护","原有标记不改写","原图已有商品标记和图上信息不改写、不另造一份。","拼多多/天猫超市","鞋/T恤/外套","不新增图上文字","O04","https://github.com/buluslan/gpt-image2-ecommerce/blob/73abd50bf2b689b5a453f28ddd7b0016415deec6/references/scenarios/edit-bg-swap.json","MIT","本地草稿，未生图实测"
+"R01","限制","不生成营销信息","不新增价格、促销、参数、认证、Logo或标语。","拼多多/天猫超市","鞋/T恤/外套","原有真实信息按P08保留","O04/O11/项目经验","https://github.com/buluslan/gpt-image2-ecommerce/blob/73abd50bf2b689b5a453f28ddd7b0016415deec6/references/scenarios/edit-bg-swap.json
+https://github.com/JeremyGDM/awesome-ai-product-photography-prompts/blob/6815dab9c17ce20c5c554df4ecf28336fd0aef0a/README.md","MIT / CC0-1.0（仓库声明）","本地草稿，未生图实测"
+"R02","限制","三张独立候选","A/B/C各一张独立文件，不拼成三宫格、不复制凑数。","拼多多/天猫超市","鞋/T恤/外套","鞋原组合布局仍保留；分次时报告实际张数","项目决定/阶段2要求","项目素材核验与领域规则","项目自写规则","本地草稿，未生图实测"
+"R03","限制","没有素材就停","看不到核实原图或货号颜色不符时停止，不凭名称生成。","拼多多/天猫超市","鞋/T恤/外套","482295待素材模板必须先核实输入","阶段2要求/阶段1复核","项目素材核验与领域规则","项目自写规则","本地草稿，未生图实测"
+"R04","限制","不猜商品参数","不从商品名或外观推断成分、性能、尺码和功能。","拼多多/天猫超市","鞋/T恤/外套","仅使用已给事实","项目经验/阶段2要求","项目素材核验与领域规则","项目自写规则","本地草稿，未生图实测"

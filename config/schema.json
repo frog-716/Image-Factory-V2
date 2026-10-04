@@ -1,0 +1,527 @@
+{
+  "name": "Image Factory V2 · 阶段0",
+  "time_zone": "Asia/Shanghai",
+  "tables": [
+    {
+      "name": "商品库",
+      "view": {
+        "name": "商品",
+        "type": "grid"
+      },
+      "fields": [
+        {
+          "name": "品牌与货号",
+          "type": "formula",
+          "expression": "IF(OR(ISBLANK([品牌]),ISBLANK([货号])),\"\",[品牌]&\" \"&[货号])",
+          "description": "品牌与货号自动合成的主字段，不新增人工商品编号。"
+        },
+        {
+          "name": "品牌",
+          "type": "text"
+        },
+        {
+          "name": "货号",
+          "type": "text",
+          "description": "对应领域模型的 SKU号；款式货号不代表具体颜色尺码。"
+        },
+        {
+          "name": "商品名称",
+          "type": "text"
+        },
+        {
+          "name": "品类",
+          "type": "select",
+          "multiple": false,
+          "options": [
+            {
+              "name": "鞋"
+            },
+            {
+              "name": "服装"
+            }
+          ]
+        },
+        {
+          "name": "核心卖点",
+          "type": "text"
+        },
+        {
+          "name": "禁改项",
+          "type": "text"
+        },
+        {
+          "name": "主图参考",
+          "type": "link",
+          "link_table": "素材库",
+          "bidirectional": false
+        },
+        {
+          "name": "商品状态",
+          "type": "select",
+          "multiple": false,
+          "options": [
+            {
+              "name": "待确认"
+            },
+            {
+              "name": "可用"
+            },
+            {
+              "name": "停用"
+            }
+          ]
+        },
+        {
+          "name": "备注",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "name": "素材库",
+      "view": {
+        "name": "素材画册",
+        "type": "gallery"
+      },
+      "fields": [
+        {
+          "name": "素材名称",
+          "type": "text"
+        },
+        {
+          "name": "关联商品",
+          "type": "link",
+          "link_table": "商品库",
+          "bidirectional": false
+        },
+        {
+          "name": "素材类型",
+          "type": "select",
+          "multiple": false,
+          "options": [
+            {
+              "name": "商品原图"
+            },
+            {
+              "name": "商品细节"
+            },
+            {
+              "name": "场景参考"
+            },
+            {
+              "name": "排版参考"
+            }
+          ]
+        },
+        {
+          "name": "附件",
+          "type": "attachment"
+        },
+        {
+          "name": "素材来源",
+          "type": "text"
+        },
+        {
+          "name": "视角与用途",
+          "type": "text",
+          "description": "对应领域模型的视角/用途。"
+        },
+        {
+          "name": "场景标签",
+          "type": "select",
+          "multiple": true,
+          "options": []
+        },
+        {
+          "name": "风格标签",
+          "type": "select",
+          "multiple": true,
+          "options": []
+        },
+        {
+          "name": "渠道标签",
+          "type": "select",
+          "multiple": true,
+          "options": [
+            {
+              "name": "拼多多"
+            },
+            {
+              "name": "天猫超市"
+            }
+          ]
+        },
+        {
+          "name": "允许用于生图",
+          "type": "checkbox",
+          "description": "仅表示素材可以进入生图工具；附件探针不得勾选。"
+        },
+        {
+          "name": "素材说明",
+          "type": "text",
+          "description": "单文件单版本；人工确认商品身份与颜色，AI建议不得覆盖事实。"
+        }
+      ]
+    },
+    {
+      "name": "提示词组件库",
+      "view": {
+        "name": "提示词组件",
+        "type": "grid"
+      },
+      "fields": [
+        {
+          "name": "组件名称",
+          "type": "text"
+        },
+        {
+          "name": "组件类型",
+          "type": "select",
+          "multiple": false,
+          "options": [
+            {
+              "name": "渠道"
+            },
+            {
+              "name": "图片功能"
+            },
+            {
+              "name": "场景"
+            },
+            {
+              "name": "风格"
+            },
+            {
+              "name": "构图"
+            },
+            {
+              "name": "光线"
+            },
+            {
+              "name": "商品保护"
+            },
+            {
+              "name": "限制"
+            }
+          ]
+        },
+        {
+          "name": "组件内容",
+          "type": "text"
+        },
+        {
+          "name": "适用渠道",
+          "type": "select",
+          "multiple": true,
+          "options": [
+            {
+              "name": "拼多多"
+            },
+            {
+              "name": "天猫超市"
+            }
+          ]
+        },
+        {
+          "name": "适用品类",
+          "type": "select",
+          "multiple": true,
+          "options": [
+            {
+              "name": "鞋"
+            },
+            {
+              "name": "服装"
+            }
+          ]
+        },
+        {
+          "name": "风险备注",
+          "type": "text"
+        },
+        {
+          "name": "是否启用",
+          "type": "checkbox"
+        },
+        {
+          "name": "备注",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "name": "生图任务",
+      "view": {
+        "name": "生图任务",
+        "type": "grid"
+      },
+      "fields": [
+        {
+          "name": "任务名称",
+          "type": "text",
+          "description": "飞书必需的展示主字段，不作为另一个业务编号。"
+        },
+        {
+          "name": "商品",
+          "type": "link",
+          "link_table": "商品库",
+          "bidirectional": false
+        },
+        {
+          "name": "操作人",
+          "type": "user",
+          "multiple": false,
+          "default_value": [
+            {
+              "$slot": "current_user"
+            }
+          ]
+        },
+        {
+          "name": "渠道",
+          "type": "select",
+          "multiple": false,
+          "options": [
+            {
+              "name": "拼多多"
+            },
+            {
+              "name": "天猫超市"
+            }
+          ]
+        },
+        {
+          "name": "图片功能",
+          "type": "text"
+        },
+        {
+          "name": "所处版面",
+          "type": "text"
+        },
+        {
+          "name": "场景",
+          "type": "text"
+        },
+        {
+          "name": "风格",
+          "type": "text"
+        },
+        {
+          "name": "目标图片数量",
+          "type": "number",
+          "style": {
+            "type": "plain",
+            "precision": 0
+          },
+          "default_value": 3,
+          "description": "默认3张独立候选；不能用拼图裁切或重复文件凑数。"
+        },
+        {
+          "name": "选择素材",
+          "type": "link",
+          "link_table": "素材库",
+          "bidirectional": false
+        },
+        {
+          "name": "选择提示词组件",
+          "type": "link",
+          "link_table": "提示词组件库",
+          "bidirectional": false
+        },
+        {
+          "name": "自由补充想法",
+          "type": "text"
+        },
+        {
+          "name": "智能提示词草稿",
+          "type": "text",
+          "description": "对应 AI提示词草稿；阶段0只建普通文本存储字段，未配置AI能力。"
+        },
+        {
+          "name": "最终提示词快照",
+          "type": "text",
+          "description": "保存运营确认文字及素材/组件版本；不代表GPT内部提示词或全部对话。"
+        },
+        {
+          "name": "任务状态",
+          "type": "select",
+          "multiple": false,
+          "options": [
+            {
+              "name": "待准备"
+            },
+            {
+              "name": "待生成"
+            },
+            {
+              "name": "待回传"
+            },
+            {
+              "name": "待评价"
+            },
+            {
+              "name": "已完成"
+            },
+            {
+              "name": "已取消"
+            }
+          ],
+          "default_value": [
+            "待准备"
+          ]
+        },
+        {
+          "name": "创建时间",
+          "type": "created_at",
+          "style": {
+            "format": "yyyy-MM-dd HH:mm"
+          }
+        }
+      ]
+    },
+    {
+      "name": "成图与反馈",
+      "view": {
+        "name": "成图反馈",
+        "type": "grid"
+      },
+      "fields": [
+        {
+          "name": "图片名称",
+          "type": "text",
+          "description": "飞书展示主字段；一图一记录。"
+        },
+        {
+          "name": "关联任务",
+          "type": "link",
+          "link_table": "生图任务",
+          "bidirectional": false
+        },
+        {
+          "name": "图片附件",
+          "type": "attachment"
+        },
+        {
+          "name": "结果",
+          "type": "select",
+          "multiple": false,
+          "options": [
+            {
+              "name": "采用"
+            },
+            {
+              "name": "淘汰"
+            }
+          ],
+          "description": "未评留空，不默认淘汰；不增加是否采用字段。"
+        },
+        {
+          "name": "问题标签",
+          "type": "select",
+          "multiple": true,
+          "options": []
+        },
+        {
+          "name": "喜欢标签",
+          "type": "select",
+          "multiple": true,
+          "options": []
+        },
+        {
+          "name": "一句话备注",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "name": "周度总结",
+      "view": {
+        "name": "周度总结",
+        "type": "grid"
+      },
+      "fields": [
+        {
+          "name": "周编号",
+          "type": "text"
+        },
+        {
+          "name": "开始日期",
+          "type": "datetime",
+          "style": {
+            "format": "yyyy-MM-dd"
+          }
+        },
+        {
+          "name": "结束日期",
+          "type": "datetime",
+          "style": {
+            "format": "yyyy-MM-dd"
+          }
+        },
+        {
+          "name": "任务数",
+          "type": "number",
+          "style": {
+            "type": "plain",
+            "precision": 0
+          }
+        },
+        {
+          "name": "已回传图片数",
+          "type": "number",
+          "style": {
+            "type": "plain",
+            "precision": 0
+          }
+        },
+        {
+          "name": "已评价图片数",
+          "type": "number",
+          "style": {
+            "type": "plain",
+            "precision": 0
+          }
+        },
+        {
+          "name": "采用图片数",
+          "type": "number",
+          "style": {
+            "type": "plain",
+            "precision": 0
+          }
+        },
+        {
+          "name": "采用率",
+          "type": "number",
+          "style": {
+            "type": "plain",
+            "precision": 2,
+            "percentage": true
+          },
+          "description": "采用数÷已评价数；分母为0留空显示暂无。阶段0不填报、不汇总。"
+        },
+        {
+          "name": "高频标签",
+          "type": "select",
+          "multiple": true,
+          "options": []
+        },
+        {
+          "name": "典型图片",
+          "type": "link",
+          "link_table": "成图与反馈",
+          "bidirectional": false
+        },
+        {
+          "name": "智能周度总结",
+          "type": "text",
+          "description": "对应 AI周度总结；阶段0只建普通文本存储字段，不配置AI或自动化。"
+        },
+        {
+          "name": "人工补充",
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
