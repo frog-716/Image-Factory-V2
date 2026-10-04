@@ -25,6 +25,12 @@ def digest(value):
     return hashlib.sha256(json.dumps(value, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
 
 
+def fields_match(row, expected):
+    # Base can normalize an explicitly empty text cell to null/omitted.
+    return all(row.get(key) == value or (value == '' and row.get(key) is None)
+               for key, value in expected.items())
+
+
 class Connection:
     def __init__(self, root=ROOT, cli=None, sources=None, config=None):
         self.root = Path(root)
@@ -187,7 +193,7 @@ class Connection:
         self.state['tasks'][record_id] = {'source': source, 'packages': [], 'created_by_connector': True}
         self.persist()  # Keep real ID even if subsequent read/prepare fails.
         row = self.row(TASKS, record_id)
-        if row.get('最终提示词快照') or any(row.get(k) != v for k, v in fields.items()):
+        if row.get('最终提示词快照') or not fields_match(row, fields):
             self.uncertain('新任务字段读回不符，先核对，不重建。')
         if source_row != (self.row(TASKS, source) if source else None):
             raise ValueError('复制期间原任务发生变化，停止检查。')
@@ -228,7 +234,7 @@ class Connection:
             fields['任务状态'] = ['待生成']
         self.update(TASKS, record_id, fields)
         after = self.row(TASKS, record_id)
-        if after.get('最终提示词快照') != before.get('最终提示词快照') or any(after.get(k) != v for k, v in fields.items()):
+        if after.get('最终提示词快照') != before.get('最终提示词快照') or not fields_match(after, fields):
             self.uncertain('草稿读回不符或快照变化，停止，不自动重发。')
         request['snapshot'] = after.get('最终提示词快照')
         stamp = datetime.now().strftime('%Y%m%d-%H%M%S-%f')
@@ -310,7 +316,7 @@ class Connection:
                        '--file', str(upload.relative_to(self.root))], write=True, attachment=True)
         actual = self.row(FEEDBACK, record_id)
         attachments = actual.get('图片附件') or []
-        if any(actual.get(k) != v for k, v in fields.items()) or len(attachments) != 1:
+        if not fields_match(actual, fields) or len(attachments) != 1:
             self.uncertain('图片反馈关联/附件未确认，停止对账。')
         downloaded = self.local / (uuid.uuid4().hex + file.suffix.lower())
         self.cli.call(self.args('+record-download-attachment', FEEDBACK) +

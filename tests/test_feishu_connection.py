@@ -66,7 +66,7 @@ class MemoryCLI:
             self.writes.append((table, deepcopy(payload)))
             if command == '+record-batch-create':
                 record_id = 'synthetic-new-' + str(len(self.writes))
-                row = deepcopy(payload['create_records'][0])
+                row = {k: (None if v == '' else deepcopy(v)) for k, v in payload['create_records'][0].items()}
                 row.update(record_id=record_id)
                 if table == TASKS:
                     row.update(最终提示词快照=None)
@@ -76,7 +76,7 @@ class MemoryCLI:
                 data = {'record_id_list': [] if self.partial_create else [record_id]}
             else:
                 for record_id, fields in payload['update_records'].items():
-                    self.records[table][record_id].update(deepcopy(fields))
+                    self.records[table][record_id].update({k: (None if v == '' else deepcopy(v)) for k, v in fields.items()})
         elif command == '+record-download-attachment':
             (self.root / arg('--output')).write_bytes(self.attachments[arg('--file-token')])
         elif command == '+record-upload-attachment':
@@ -113,13 +113,16 @@ class ConnectionTests(unittest.TestCase):
         return Path(self.connection.prepare(task)['package'])
 
     def test_new_task_and_package_use_returned_remote_id(self):
-        task = self.new()
+        task = self.connection.create(sku='484330', method='catalog-design', idea='')
         package = self.package(task)
         mapping = json.loads((package / '回填任务定位.json').read_text())
         self.assertEqual(mapping['remote_task_id'], task)
         self.assertEqual((package / 'inputs' / self.assets['484330']['filename']).read_bytes(),
                          Path(self.assets['484330']['path']).read_bytes())
         self.assertIn(task, (package / '使用说明.md').read_text())
+        self.assertIsNone(self.cli.records[TASKS][task]['自由补充想法'])
+        self.assertIn('无额外补充', (package / 'prompt.txt').read_text())
+        self.connection.prepare(task, idea='')
 
     def test_copy_does_not_copy_snapshot_or_modify_history(self):
         task = self.new()
@@ -189,11 +192,12 @@ class ConnectionTests(unittest.TestCase):
         self.connection.mark_used(package)
         self.cli.records[FEEDBACK]['old'] = {'record_id': 'old', '结果': ['淘汰'], '一句话备注': 'old'}
         old = deepcopy(self.cli.records[FEEDBACK]['old'])
-        result = self.connection.feedback(package, self.assets['484330']['path'], '采用', 'synthetic feedback')
+        result = self.connection.feedback(package, self.assets['484330']['path'], '采用', '')
         row = self.cli.records[FEEDBACK][result['record_id']]
         self.assertEqual(row['关联任务'], [{'id': task}])
         self.assertEqual(row['结果'], ['采用'])
         self.assertEqual(len(row['图片附件']), 1)
+        self.assertIsNone(row['一句话备注'])
         self.assertEqual(self.cli.records[FEEDBACK]['old'], old)
         with self.assertRaises(ValueError):
             self.connection.feedback(package, self.assets['484330']['path'], '淘汰')
