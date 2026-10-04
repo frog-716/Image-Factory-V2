@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "status": "本地做法，未接通飞书、未生图验证",
+  "status": "三做法本地准备；P0两款已完成首轮人工真实生图验证，获明确采用/淘汰反馈",
   "methods": {
     "clear-product": {
       "name": "商品看清楚",
@@ -27,7 +27,7 @@
       "directions": ["A：干净目录版，白色背景、清楚的主体边缘，不额外加装饰，完整保留源图标记。", "B：几何色块版，在商品后方布置一块明显但克制的中性色二维色块，让两个既有视图形成目录层次；不覆盖鞋或标记、不制造实物承托关系。", "C：编辑留白版，在不移动两个视图的情况下，用明确侧向留白区域与分层背景组织阅读；左上原标记仍完整可见，不新增文字。"]
     }
   },
-  "design_note": "三方向是比较候选，不是风格锁定的统一套图；尚无这三方向的真实样片。具体方向是本项目适配，不是新增组件记录。",
+  "design_note": "三方向用于比较；鞋C、茄克B在首轮人工测试采用，其余方向淘汰。业务样片不公开。具体方向为本项目适配，不新增组件记录。",
   "sources": [
     {"author": "buluslan / Buluu@新西楼", "url": "https://github.com/buluslan/gpt-image2-ecommerce", "commit": "73abd50bf2b689b5a453f28ddd7b0016415deec6", "license": "MIT"},
     {"author": "yang0", "url": "https://github.com/yang0/handraw-style", "commit": "f03971d541d937c74bb302b650c2fb8b1d9cb0db", "license": "MIT License (with Attribution Requirement)"},

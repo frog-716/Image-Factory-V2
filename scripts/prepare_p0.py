@@ -110,9 +110,9 @@ def build_package(task, methods_config, catalog, assets, output):
     mapping = {'local_task_id': task['local_task_id'], 'task_name': task['task_name'],
                'remote_task_id': task.get('remote_task_id'), 'source_task_record_id': task.get('source_task_record_id'),
                'start_url': start, 'feedback_url': feedback,
-               'rule': '旧任务仅作定位参照，不能把本次新Prompt或结果写进旧快照/反馈。批准接通后创建或复制新任务，登记真实记录ID，再逐张关联该新任务。'}
+               'rule': '旧任务仅作定位参照，不能把本次新Prompt或结果写进旧快照/反馈。每张新结果只关联本包登记的新任务；远端ID为空时先创建新任务，不能猜ID。'}
     save(directory / '回填任务定位.json', mapping)
-    (directory / '方向说明.md').write_text('# 三张比较方向，尚无真实样片\n\n' +
+    (directory / '方向说明.md').write_text('# 三张比较方向\n\n本包未生图；首轮人工效果与采用/淘汰见项目案例复盘，不附带业务样片。\n\n' +
         '\n\n'.join(prepared['directions']) + '\n\n共同保留：同款同色、可见结构、已有标记、当前素材范围。\n' +
         '素材角色：只上传inputs中这一张核实原图，它提供商品事实；没有风格参考或成品样片。\n')
     licenses = directory / '来源许可'
@@ -121,20 +121,30 @@ def build_package(task, methods_config, catalog, assets, output):
                    ROOT / 'docs/第三方许可/CC0来源说明.md',
                    ROOT / 'docs/第三方许可/yang0-LICENSE.txt']:
         shutil.copyfile(source, licenses / source.name)
+    connected = bool(task.get('remote_task_id'))
+    task_instruction = (
+        f'4. 本包关联的新飞书任务ID：**{task["remote_task_id"]}**。实际使用Prompt时确认快照，回填时每图一条，关联这个新任务；不覆盖旧反馈。\n\n'
+        if connected else
+        f'4. 本地任务是**{task["local_task_id"]}**，尚无远端新任务ID。先创建新飞书任务并重新准备，不能回写旧任务或猜ID。\n\n'
+    )
+    state_text = '已定位新飞书任务 · 未生图' if connected else '本地待用包 · 未生图 · 尚无远端新任务ID'
+    feedback_instruction = (
+        f'本包的真实新任务ID：{html.escape(task["remote_task_id"])}。回填时关联这个新任务，不覆盖旧反馈。'
+        if connected else f'先按本地任务 {html.escape(task["local_task_id"])} 保存；创建飞书新任务后重新准备，不回写旧任务。'
+    )
     (directory / '使用说明.md').write_text(
         f'# {sku}生成准备包\n\n1. 上传`inputs/{asset["filename"]}`到GPT，作为第1张输入图。\n'
         '2. 复制`prompt.txt`全部文字，要求A/B/C各一张独立图；不能一次输出时逐张执行。\n'
-        '3. 与原图对照颜色、结构、已有标记和未知部分，再判断三方向是否有用；原图更好也可以保留原图。\n'
-        f'4. 本地任务是**{task["local_task_id"]}**。飞书新任务映射待接通；先按这个编号保存结果和采用/淘汰理由，'
-        '不要回写旧任务。接通后每图一条反馈、关联对应新任务，采用/淘汰由本人选。\n\n' +
+        '3. 与原图对照颜色、结构、已有标记和未知部分，再判断三方向是否有用；原图更好也可以保留原图。\n' +
+        task_instruction +
         (f'[准备入口]({start}) · [反馈入口]({feedback})\n\n' if base else '未配置远端入口；不假装已有连接。\n\n') +
-        '这是待用本地包，未生图、未调用API、未创建飞书记录。改想法需重新准备新的包；旧快照不变。\n')
+        '本包未生图。改想法需重新准备新的包；旧快照不变。已有使用快照与新Prompt不同时，复制新任务再使用；不覆盖快照。\n')
     page = f'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{sku}生成准备包</title><style>body{{font:17px/1.7 system-ui;margin:32px auto;max-width:850px;padding:0 20px;color:#202526}}img{{width:150px;float:right;margin:0 0 20px 20px}}pre{{white-space:pre-wrap;border:1px solid #ccc;padding:20px;font:15px/1.7 system-ui}}a{{color:#176745}}</style>
-<h1>{sku} · {html.escape(prepared['method_name'])}</h1><p>本地待用包 · 尚未生成效果图 · 飞书新任务待接通</p>
+<h1>{sku} · {html.escape(prepared['method_name'])}</h1><p>{state_text}</p>
 <img src="inputs/{asset['filename']}" alt="实际核实原图，不是生成样片"><ol><li>将<a download href="inputs/{asset['filename']}">这张原图</a>上传GPT。</li>
 <li>复制下面的完整提示词，生成3张独立候选。</li><li>与原图对照商品与已有标记，再选图并写一句原因。</li>
-<li>先按本地任务 {html.escape(task['local_task_id'])} 保存结果。新飞书任务接通后，回到{('<a href="' + html.escape(feedback) + '">反馈入口</a>') if feedback else '已配置的反馈入口（当前未配置）'}关联新任务；不要覆盖旧反馈。</li></ol>
+<li>{feedback_instruction} {('<a href="' + html.escape(feedback) + '">反馈入口</a>') if feedback else ''}</li></ol>
 <p><a href="prompt.txt" download>下载完整Prompt</a> · <a href="方向说明.md">方向说明</a> · <a href="回填任务定位.json">任务定位</a></p>
 <pre>{html.escape(prepared['draft'])}</pre><footer>来源：buluslan / Buluu@新西楼、<a href="https://github.com/yang0/handraw-style">yang0</a>、JeremyGDM；署名、来源与许可随包保留。</footer></html>'''
     (directory / '打开使用.html').write_text(page)
@@ -148,7 +158,7 @@ def build_package(task, methods_config, catalog, assets, output):
     return {'sku': sku, 'local_task_id': task['local_task_id'], 'package': str(directory.relative_to(ROOT)) if directory.is_relative_to(ROOT) else str(directory),
             'zip': str(archive), 'zip_sha256': sha(archive), 'image_sha256': asset['sha256'],
             'draft_sha256': sha(directory / 'prompt.txt'), 'component_ids': prepared['component_ids'],
-            'remote_task_id': task.get('remote_task_id'), 'state': '本地待用，未生图、未接通飞书新任务'}
+            'remote_task_id': task.get('remote_task_id'), 'state': state_text}
 
 
 def main():
