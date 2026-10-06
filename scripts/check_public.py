@@ -12,6 +12,8 @@ SCREENSHOTS = {
     'docs/media/02-feedback-redacted.png': 'cab0f1903696bb7dc3067677c8ae1abb906fb231a3c75cea9753347f624149a1',
     # User-approved architecture illustration; no business images or private IDs.
     'docs/media/03-architecture-flow.jpg': '119eb28f5cbb46c8f0392f27eb1e259ca7588c66dcb4aa94c356ad07d498bc8d',
+    # Regenerated Stage D infographic, visually verified; generic illustrations only.
+    'docs/media/04-mvp-flow-stage-d.jpg': 'bb7d609d83898e690a70f64d97552bb6d1a70c81271214d431c9adfae940c073',
 }
 PATTERNS = {
     'secret': re.compile(r'(?:gh[pousr]_[A-Za-z0-9]{20,}|sk-[A-Za-z0-9_-]{20,}|AKIA[A-Z0-9]{16}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----)'),
