@@ -1,4 +1,8 @@
-"""Explicit, local-first Feishu task preparation. No model, queue or listener."""
+"""LEGACY / VALIDATION ONLY: historical manual Feishu connection.
+
+Retained for regression and readback checks, not the daily operator entry.
+Stage A requires a native Feishu workflow; this module is not its substitute.
+"""
 import argparse
 from copy import deepcopy
 from datetime import datetime

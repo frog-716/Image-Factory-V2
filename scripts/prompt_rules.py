@@ -1,4 +1,7 @@
-"""Local prompt rules. Stage 3 seed assembly remains unchanged; P0 reads new inputs."""
+"""LEGACY / VALIDATION ONLY: historical deterministic prompt assembly.
+
+Retained for regression; not the Stage A AI Prompt Composer or its author.
+"""
 
 from copy import deepcopy
 

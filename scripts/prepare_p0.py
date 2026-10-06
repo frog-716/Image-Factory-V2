@@ -1,4 +1,8 @@
-"""P0 local preparation only. No network client, Lark transport, or model call."""
+"""LEGACY / VALIDATION ONLY: historical P0 local preparation.
+
+Retained to validate approved materials and historical packages, not for daily
+operations. No network client, Lark transport, or model call.
+"""
 import argparse
 import csv
 import hashlib
