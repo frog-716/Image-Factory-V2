@@ -292,7 +292,19 @@
         },
         {
           "name": "图片功能",
-          "type": "text"
+          "type": "select",
+          "multiple": false,
+          "options": [
+            {
+              "name": "商品看清楚"
+            },
+            {
+              "name": "穿搭换环境"
+            },
+            {
+              "name": "版式有设计感"
+            }
+          ]
         },
         {
           "name": "所处版面",
@@ -376,6 +388,11 @@
           "style": {
             "format": "yyyy-MM-dd HH:mm"
           }
+        },
+        {
+          "name": "智能创意建议",
+          "type": "text",
+          "description": "AI小实验输出，只供人工参考，不覆盖正式商品资料、草稿快照或采用/淘汰。"
         }
       ]
     },
@@ -430,6 +447,11 @@
         {
           "name": "一句话备注",
           "type": "text"
+        },
+        {
+          "name": "智能图片检查",
+          "type": "text",
+          "description": "AI小实验输出，只供人工参考，不覆盖正式商品资料、草稿快照或采用/淘汰。"
         }
       ]
     },

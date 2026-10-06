@@ -8,7 +8,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from connect_feishu import Connection, TASKS, FEEDBACK
+from connect_feishu import Connection, TASKS, FEEDBACK, INPUT_FIELDS, digest
 from lark_cli import UnknownWrite
 from prepare_p0 import load_sources
 from p0_fixture import fixture_profile
@@ -171,6 +171,35 @@ class ConnectionTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.package(task)
         self.assertEqual(self.cli.writes, before)
+
+    def test_picture_function_requires_single_fixed_selection(self):
+        task = self.new()
+        self.assertEqual(self.cli.records[TASKS][task]['图片功能'], ['版式有设计感'])
+        for invalid in ['版式有设计感', [], ['商品看清楚', '版式有设计感'], ['任意自由文本']]:
+            self.cli.records[TASKS][task]['图片功能'] = invalid
+            writes = deepcopy(self.cli.writes)
+            with self.assertRaises(ValueError):
+                self.package(task)
+            self.assertEqual(self.cli.writes, writes)
+
+    def test_select_conversion_preserves_compatible_old_package_confirmation(self):
+        task = self.new()
+        package = self.package(task)
+        row = self.cli.records[TASKS][task]
+        old_inputs = {k: deepcopy(row.get(k)) for k in INPUT_FIELDS}
+        old_inputs['图片功能'] = old_inputs['图片功能'][0]
+        self.connection.state['tasks'][task]['packages'][0]['input_digest'] = digest(old_inputs)
+        self.connection.mark_used(package)
+        self.assertEqual(row['最终提示词快照'], (package / 'prompt.txt').read_text().rstrip('\n'))
+
+    def test_ai_experiment_suggestions_cannot_change_production_prompt(self):
+        task = self.new()
+        self.cli.records[TASKS][task]['智能创意建议'] = '未经人工选择的AI建议：补鞋底并改原标记'
+        package = self.package(task)
+        self.assertNotIn('未经人工选择的AI建议', (package / 'prompt.txt').read_text())
+        copied = self.connection.create(source=task, method='catalog-design')
+        self.assertNotIn('智能创意建议', self.cli.records[TASKS][copied])
+        self.assertIsNone(self.cli.records[TASKS][copied]['最终提示词快照'])
 
     def test_changed_component_content_blocks_new_draft(self):
         task = self.new()

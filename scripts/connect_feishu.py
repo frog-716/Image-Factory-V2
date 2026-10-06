@@ -134,8 +134,11 @@ class Connection:
         asset = candidates[0]
         if row.get('商品') != [{'id': asset['product_record']['record_id']}]:
             raise ValueError('任务商品与素材不一致。')
+        functions = row.get('图片功能') or []
+        if not isinstance(functions, list) or len(functions) != 1:
+            raise ValueError('图片功能必须从三个固定做法中单选。')
         method = method or next((k for k, v in self.methods['methods'].items()
-                                 if v['name'] == row.get('图片功能')), None)
+                                 if v['name'] == functions[0]), None)
         channel = row.get('渠道') or []
         if len(channel) != 1:
             raise ValueError('只允许一个已支持渠道。')
@@ -185,7 +188,7 @@ class Connection:
         prepared = prepare_local_task(request, self.methods['methods'], self.catalog, self.assets[request['sku']])
         self.live_asset(self.assets[request['sku']])
         fields.update({'任务名称': name or f'{request["sku"]} · 新方向 · {datetime.now().strftime("%Y%m%d-%H%M%S")}-{uuid.uuid4().hex[:6]}',
-                       '图片功能': prepared['method_name'], '渠道': [request['channel']], '目标图片数量': 3,
+                       '图片功能': [prepared['method_name']], '渠道': [request['channel']], '目标图片数量': 3,
                        '自由补充想法': request['free_idea'], '任务状态': ['待准备'],
                        '选择提示词组件': self.components(prepared['component_ids'])})
         # Never copy snapshot, draft, operator, feedback or creation time.
@@ -226,7 +229,7 @@ class Connection:
         current = self.row(TASKS, record_id)
         if any(current.get(k) != before.get(k) for k in (*INPUT_FIELDS, '最终提示词快照', '智能提示词草稿')):
             raise ValueError('准备期间有人修改任务，停止；重新读取后再准备。')
-        fields = {'智能提示词草稿': prepared['draft'], '图片功能': prepared['method_name'],
+        fields = {'智能提示词草稿': prepared['draft'], '图片功能': [prepared['method_name']],
                   '选择提示词组件': components}
         if idea is not None:
             fields['自由补充想法'] = idea
@@ -276,7 +279,11 @@ class Connection:
             if existing != prompt:
                 raise ValueError('已有不同快照，不能覆盖；请复制新任务。')
             return row['record_id']
-        if row.get('智能提示词草稿') != prompt or digest({k: row.get(k) for k in INPUT_FIELDS}) != entry['input_digest']:
+        inputs = {k: row.get(k) for k in INPUT_FIELDS}
+        legacy_inputs = deepcopy(inputs)
+        if isinstance(inputs.get('图片功能'), list) and len(inputs['图片功能']) == 1:
+            legacy_inputs['图片功能'] = inputs['图片功能'][0]
+        if row.get('智能提示词草稿') != prompt or entry['input_digest'] not in {digest(inputs), digest(legacy_inputs)}:
             raise ValueError('任务已变化；该包不能作为当前使用快照。')
         self.write(TASKS, {'update_records': {row['record_id']: {'最终提示词快照': prompt, '任务状态': ['待回传']}}})
         after = self.row(TASKS, row['record_id'])
