@@ -89,6 +89,7 @@ python -m unittest discover -s tests -v
 | 当前完成到哪里 | [STATUS](docs/STATUS.md) |
 | 代码与文档怎么找 | [MAP](MAP.md) |
 | 普通运营如何使用 | [一页速记](docs/运营使用速记.md)、[使用流程](docs/使用流程.md) |
+| 完整操作、字段与设计原理 | [完整使用与原理手册](docs/完整使用与原理手册.md) |
 | 六表关系与关键决定 | [领域模型](docs/domain/DOMAIN-MODEL.md)、[ADR](docs/adr/README.md) |
 | 产品取舍与事实边界 | [设计与边界](docs/设计与边界.md)、[案例复盘](docs/案例复盘.md) |
 | 实验结论 | [飞书AI小实验](docs/飞书AI小实验.md) |
