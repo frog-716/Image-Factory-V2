@@ -10,6 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SCREENSHOTS = {
     'docs/media/01-prepare-task-redacted.png': '1ecdf95a65922cbb26a44c22d36eb88172c48e190a9f6ad0344bba387307541a',
     'docs/media/02-feedback-redacted.png': 'cab0f1903696bb7dc3067677c8ae1abb906fb231a3c75cea9753347f624149a1',
+    # User-approved architecture illustration; no business images or private IDs.
+    'docs/media/03-architecture-flow.jpg': '119eb28f5cbb46c8f0392f27eb1e259ca7588c66dcb4aa94c356ad07d498bc8d',
 }
 PATTERNS = {
     'secret': re.compile(r'(?:gh[pousr]_[A-Za-z0-9]{20,}|sk-[A-Za-z0-9_-]{20,}|AKIA[A-Z0-9]{16}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----)'),
